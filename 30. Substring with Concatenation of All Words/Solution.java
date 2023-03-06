@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Solution {
     public static void main(String[] args) {
-        System.out.println(new Solution().findSubstring("barfoothefoobarman", new String[] {"foo","bar"}));
+        System.out.println(new Solution().findSubstring("wordgoodgoodgoodbestword", new String[] {"word","good","best","word"}));
     }
 
     public List<Integer> findSubstring(String s, String[] words) {
@@ -12,16 +12,24 @@ public class Solution {
         //from 0 to wordLen - 1
         for (int i = 0; i < wordLen; i++) {
             int currCount = 0;
-            for (int currIndex = i; currIndex < s.length() - wordLen; currIndex += wordLen) {
+            for (int currIndex = i; currIndex + wordLen <= s.length(); currIndex += wordLen) {
                 String currWord = s.substring(currIndex, currIndex + wordLen);
                 if (allWords.contains(currWord)) {
                     if (usedWords.contains(currWord)) {
-                        //remove (from set) frame total length back until curr word is deleted and set currCount accordingly
+                        int beginIndex = currIndex - currCount * wordLen;
+                        String deleteWord = null;
+                        while (deleteWord != currWord) {
+                            deleteWord = s.substring(beginIndex, beginIndex + wordLen);
+                            usedWords.remove(deleteWord);
+                            beginIndex += wordLen;
+                            currCount--;
+                        }
+                        currCount++;
                     } else {
                         usedWords.add(currWord);
                         currCount += 1;
                         if (currCount == wordCount) {
-                            result.add(currIndex);
+                            result.add(currIndex - totalLen + wordLen);
                             currCount -= 1;
                         }
                     }
