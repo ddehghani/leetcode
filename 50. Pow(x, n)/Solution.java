@@ -2,31 +2,34 @@ import java.util.*;
 
 public class Solution {
     public static void main(String[] args) {
-        System.out.println(- Integer.MIN_VALUE - 1);
-        System.out.println(new Solution().myPow( - 2.0, 9));
+        System.out.println(new Solution().solveNQueens(1));
     }
 
-    public double myPow(double x, int n) {
-        System.out.println(x + " " + n);
-        if (x == -1) return (n%2 == 0) ? 1.0 : -1.0;
-        Map<Integer, Double> map = new HashMap<Integer, Double>();
-        map.put(0, 1.0);
-        map.put(1, x);
-        if (n == Integer.MIN_VALUE) n++;
-        return (n < 0) ? 1 / myPow(x, -n, map) : myPow(x, n, map);
-    }
-
-    public double myPow(double x, int n, Map<Integer, Double> map) {
-        if (map.containsKey(n)) return map.get(n);
-        double half = myPow(x, n/2, map);
-        map.put(n/2, half);
-        double result = half * half;
-        map.put((n/2)*2, result);
-        if (n % 2 == 1) {
-            result *= x;
-            map.put(n, result);
+    public List<List<String>> solveNQueens(int n) {
+        boolean[][] board = new boolean[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (!board[i][j]) {
+                    board[i][j] = true;
+                }
+            }
         }
-        return result;
+        // pick a position from row 1 put a queen there
+        // remove unavailable poses 
+        // put another queen in row 2 place a queen 
+        // if you can't go back
+        // if you place last queen add it to list and go next
+        return null;
+    }
+
+    public List<String> solveNQueens(boolean[][] board, int row) {
+        for (int col = 0; col < board.length; col++) {
+            if (!board[row][col]) {
+                boolean[][] board
+                board[row][col] = true;
+            }
+        }
+        return null;
     }
 }
 
